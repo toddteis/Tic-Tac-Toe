@@ -17,7 +17,9 @@ html {
     background-color: var(--white);
 }
 
-
+h1 {
+    text-align: center;
+}
 
 /* FOOTER SECTION */
 
