@@ -1,3 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+:root {
+    --white: (#fff);
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: var(--white);
+}
+
+
 
 /* FOOTER SECTION */
 
