@@ -1,3 +1,7 @@
+const playerFactory = (name, mark) => ({
+  name, mark,
+});
+
 const tileFactory = (name, row, column, marker) => ({
   name, row, column, marker,
 });
@@ -17,5 +21,7 @@ function createTiles() {
 }
 
 const board = createTiles();
+const playerA = playerFactory('player A', 'X');
+const playerB = playerFactory('player B', 'O');
 
-console.log(board);
+console.log(board, playerA, playerB);
