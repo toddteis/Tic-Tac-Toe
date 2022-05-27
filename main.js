@@ -6,8 +6,13 @@ const gameBoard = (() => {
     let result;
     if (position >= 0 && position <= 8) {
       if (marker.toUpperCase() === 'X' || marker.toUpperCase() === 'O') {
-        _gameBoard.splice(position, 1, marker);
-        result = `Successful: Added marker ${marker} to position ${position}`;
+        const isAvailable = (_gameBoard[position] === '');
+        if (isAvailable) {
+          _gameBoard.splice(position, 1, marker);
+          result = `Successful: Added marker ${marker} to position ${position}`;
+        } else {
+          result = 'Unsuccessful: Position already in use.';
+        }
       } else {
         result = 'Unsuccessful: Not a valid marker. x or o required.';
       }
@@ -26,6 +31,7 @@ const gameBoard = (() => {
     for (let i = 0; i < _gameBoard.length; i += 1) {
       _gameBoard[i] = '';
     }
+    return _gameBoard;
   }
 
   return { setGameBoard, getGameBoard, resetGameBoard };
