@@ -19,7 +19,6 @@ const gameBoard = (() => {
     } else {
       result = 'Unsuccessful: Not a valid position. 0-9 required.';
     }
-
     return result;
   }
 
@@ -37,89 +36,92 @@ const gameBoard = (() => {
   return { setGameBoard, getGameBoard, resetGameBoard };
 })();
 
-const game = (() => {
-  // Cache DOM
-
-  const name = 'Tic Tac Toe';
-  return { name };
-})();
-
-console.log(game.name);
-
 const playerFactory = (name, mark) => ({
   name, mark,
 });
 
-const tileFactory = (name, row, column, marker) => ({
-  name, row, column, marker,
-});
+const gameController = (() => {
+  function haveWinner(position1, position2, position3) {
+    const result = [position1, position2, position3];
+    console.log('inside haveWinner');
+    console.log(result);
+    return result;
+  }
+  function checkWinGame(board) {
+    const currentBoard = board;
 
-const boardTileTopLeft = document.getElementById('top-left');
-const boardTileTopCenter = document.getElementById('top-center');
-const boardTileTopRight = document.getElementById('top-right');
-const boardTileMidLeft = document.getElementById('mid-left');
-const boardTileMidCenter = document.getElementById('mid-center');
-const boardTileMidRight = document.getElementById('mid-right');
-const boardTileBotLeft = document.getElementById('bot-left');
-const boardTileBotCenter = document.getElementById('bot-center');
-const boardTileBotRight = document.getElementById('bot-right');
+    if (currentBoard[0] !== '') {
+      // check top left to top right
+      if (currentBoard[0] === currentBoard[1]) {
+        if (currentBoard[0] === currentBoard[2]) {
+          haveWinner(currentBoard[0].indexOf(), currentBoard[1], currentBoard[2]);
+        }
+      }
+      // check top left to bottom right
+      if (currentBoard[0] === currentBoard[4]) {
+        if (currentBoard[0] === currentBoard[8]) {
+          haveWinner(currentBoard[0].indexOf(), currentBoard[4], currentBoard[8]);
+        }
+      }
+      // check top left to bottom left
+      if (currentBoard[0] === currentBoard[3]) {
+        if (currentBoard[0] === currentBoard[6]) {
+          haveWinner(currentBoard[0], currentBoard[3], currentBoard[6]);
+        }
+      }
+    }
+    // check top middle to bottom middle
+    if (currentBoard[1] !== '') {
+      if (currentBoard[1] === currentBoard[4]) {
+        if (currentBoard[1] === currentBoard[7]) {
+          haveWinner(currentBoard[1], currentBoard[4], currentBoard[7]);
+        }
+      }
+    }
+    // check top right to bottom right
+    if (currentBoard[2] !== '') {
+      if (currentBoard[2] === currentBoard[5]) {
+        if (currentBoard[2] === currentBoard[8]) {
+          haveWinner(currentBoard[2], currentBoard[5], currentBoard[8]);
+        }
+      }
+    }
+    // check middle left to middle right
+    if (currentBoard[3] !== '') {
+      if (currentBoard[3] === currentBoard[4]) {
+        if (currentBoard[3] === currentBoard[5]) {
+          haveWinner(currentBoard[3], currentBoard[4], currentBoard[5]);
+        }
+      }
+    }
+    // check bottom left to top right
+    if (currentBoard[6] !== '') {
+      if (currentBoard[6] === currentBoard[4]) {
+        if (currentBoard[6] === currentBoard[2]) {
+          haveWinner(currentBoard[6], currentBoard[4], currentBoard[2]);
+        }
+      }
+    }
+    // check bottom left to bottom right
+    if (currentBoard[6] !== '') {
+      if (currentBoard[6] === currentBoard[7]) {
+        if (currentBoard[6] === currentBoard[8]) {
+          haveWinner(currentBoard[6], currentBoard[7], currentBoard[8]);
+        }
+      }
+    }
+  }
 
-function createTiles() {
-  const arr = [];
-  arr.push(tileFactory('topLeft', 1, 1, ''));
-  arr.push(tileFactory('topCentre', 1, 2, ''));
-  arr.push(tileFactory('topRight', 1, 3, ''));
-  arr.push(tileFactory('midLeft', 2, 1, ''));
-  arr.push(tileFactory('midCentre', 2, 2, ''));
-  arr.push(tileFactory('midRight', 2, 3, ''));
-  arr.push(tileFactory('botLeft', 3, 1, ''));
-  arr.push(tileFactory('botCenter', 3, 2, ''));
-  arr.push(tileFactory('botRight', 3, 3, ''));
-  return arr;
-}
+  // testing
+  // const testBoard = ['X', 'X', 'X', '', '', '', '', '', ''];
+  // should fire haveWinner()
+  // console.log(checkWinGame(testBoard));
 
-const board = createTiles();
-const playerA = playerFactory('player A', 'X');
-const playerB = playerFactory('player B', 'O');
+  // const testBoard = ['O', 'O', 'O', '', '', '', '', '', ''];
+  // should fire haveWinner()
+  // console.log(checkWinGame(testBoard));
 
-function inputController(para) {
-  console.log(para);
-}
-
-console.log(board, playerA, playerB);
-
-boardTileTopLeft.addEventListener('click', () => {
-  inputController(boardTileTopLeft.id);
-});
-
-boardTileTopCenter.addEventListener('click', () => {
-  inputController(boardTileTopCenter.id);
-});
-
-boardTileTopRight.addEventListener('click', () => {
-  inputController(boardTileTopRight.id);
-});
-
-boardTileMidLeft.addEventListener('click', () => {
-  inputController(boardTileMidLeft.id);
-});
-
-boardTileMidCenter.addEventListener('click', () => {
-  inputController(boardTileMidCenter.id);
-});
-
-boardTileMidRight.addEventListener('click', () => {
-  inputController(boardTileMidRight.id);
-});
-
-boardTileBotLeft.addEventListener('click', () => {
-  inputController(boardTileBotLeft.id);
-});
-
-boardTileBotCenter.addEventListener('click', () => {
-  inputController(boardTileBotCenter.id);
-});
-
-boardTileBotRight.addEventListener('click', () => {
-  inputController(boardTileBotRight.id);
-});
+  const testBoard = ['X', '', '', '', 'X', '', '', '', 'X'];
+  // should fire haveWinner()
+  console.log(checkWinGame(testBoard));
+})();
