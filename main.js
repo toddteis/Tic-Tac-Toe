@@ -1,3 +1,46 @@
+/* eslint-disable no-underscore-dangle */
+const gameBoard = (() => {
+  const _gameBoard = ['', '', '', '', '', '', '', '', ''];
+
+  function setGameBoard(position, marker) {
+    let result;
+    if (position >= 0 && position <= 8) {
+      if (marker.toUpperCase() === 'X' || marker.toUpperCase() === 'O') {
+        _gameBoard.splice(position, 1, marker);
+        result = `Successful: Added marker ${marker} to position ${position}`;
+      } else {
+        result = 'Unsuccessful: Not a valid marker. x or o required.';
+      }
+    } else {
+      result = 'Unsuccessful: Not a valid position. 0-9 required.';
+    }
+
+    return result;
+  }
+
+  function getGameBoard() {
+    return _gameBoard;
+  }
+  return { setGameBoard, getGameBoard };
+})();
+
+const game = (() => {
+  // Cache DOM
+
+  const name = 'Tic Tac Toe';
+  return { name };
+})();
+
+console.log(game.name);
+
+const playerFactory = (name, mark) => ({
+  name, mark,
+});
+
+const tileFactory = (name, row, column, marker) => ({
+  name, row, column, marker,
+});
+
 const boardTileTopLeft = document.getElementById('top-left');
 const boardTileTopCenter = document.getElementById('top-center');
 const boardTileTopRight = document.getElementById('top-right');
@@ -7,14 +50,6 @@ const boardTileMidRight = document.getElementById('mid-right');
 const boardTileBotLeft = document.getElementById('bot-left');
 const boardTileBotCenter = document.getElementById('bot-center');
 const boardTileBotRight = document.getElementById('bot-right');
-
-const playerFactory = (name, mark) => ({
-  name, mark,
-});
-
-const tileFactory = (name, row, column, marker) => ({
-  name, row, column, marker,
-});
 
 function createTiles() {
   const arr = [];
