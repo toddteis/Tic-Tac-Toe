@@ -21,7 +21,14 @@ const gameBoard = (() => {
   function getGameBoard() {
     return _gameBoard;
   }
-  return { setGameBoard, getGameBoard };
+
+  function resetGameBoard() {
+    for (let i = 0; i < _gameBoard.length; i += 1) {
+      _gameBoard[i] = '';
+    }
+  }
+
+  return { setGameBoard, getGameBoard, resetGameBoard };
 })();
 
 const game = (() => {
