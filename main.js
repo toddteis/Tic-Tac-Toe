@@ -6,7 +6,7 @@ const gameBoard = (() => {
     let result;
     if (position >= 0 && position <= 8) {
       if (marker.toUpperCase() === 'X' || marker.toUpperCase() === 'O') {
-        const isAvailable = (_gameBoard[position] === '');
+        const isAvailable = _gameBoard[position] === '';
         if (isAvailable) {
           _gameBoard.splice(position, 1, marker);
           result = `Successful: Added marker ${marker} to position ${position}`;
@@ -37,7 +37,8 @@ const gameBoard = (() => {
 })();
 
 const playerFactory = (name, mark) => ({
-  name, mark,
+  name,
+  mark,
 });
 
 const gameController = (() => {
@@ -45,7 +46,6 @@ const gameController = (() => {
     const result = [position1, position2, position3];
     console.log('inside haveWinner');
     console.log(result);
-    return result;
   }
   function checkWinGame(board) {
     const currentBoard = board;
@@ -54,19 +54,19 @@ const gameController = (() => {
       // check top left to top right
       if (currentBoard[0] === currentBoard[1]) {
         if (currentBoard[0] === currentBoard[2]) {
-          haveWinner(currentBoard[0].indexOf(), currentBoard[1], currentBoard[2]);
+          haveWinner(0, 1, 2);
         }
       }
       // check top left to bottom right
       if (currentBoard[0] === currentBoard[4]) {
         if (currentBoard[0] === currentBoard[8]) {
-          haveWinner(currentBoard[0].indexOf(), currentBoard[4], currentBoard[8]);
+          haveWinner(0, 4, 8);
         }
       }
       // check top left to bottom left
       if (currentBoard[0] === currentBoard[3]) {
         if (currentBoard[0] === currentBoard[6]) {
-          haveWinner(currentBoard[0], currentBoard[3], currentBoard[6]);
+          haveWinner(0, 3, 6);
         }
       }
     }
@@ -74,7 +74,7 @@ const gameController = (() => {
     if (currentBoard[1] !== '') {
       if (currentBoard[1] === currentBoard[4]) {
         if (currentBoard[1] === currentBoard[7]) {
-          haveWinner(currentBoard[1], currentBoard[4], currentBoard[7]);
+          haveWinner(1, 4, 7);
         }
       }
     }
@@ -82,7 +82,7 @@ const gameController = (() => {
     if (currentBoard[2] !== '') {
       if (currentBoard[2] === currentBoard[5]) {
         if (currentBoard[2] === currentBoard[8]) {
-          haveWinner(currentBoard[2], currentBoard[5], currentBoard[8]);
+          haveWinner(2, 5, 8);
         }
       }
     }
@@ -90,7 +90,7 @@ const gameController = (() => {
     if (currentBoard[3] !== '') {
       if (currentBoard[3] === currentBoard[4]) {
         if (currentBoard[3] === currentBoard[5]) {
-          haveWinner(currentBoard[3], currentBoard[4], currentBoard[5]);
+          haveWinner(3, 4, 5);
         }
       }
     }
@@ -98,7 +98,7 @@ const gameController = (() => {
     if (currentBoard[6] !== '') {
       if (currentBoard[6] === currentBoard[4]) {
         if (currentBoard[6] === currentBoard[2]) {
-          haveWinner(currentBoard[6], currentBoard[4], currentBoard[2]);
+          haveWinner(6, 4, 2);
         }
       }
     }
@@ -106,22 +106,9 @@ const gameController = (() => {
     if (currentBoard[6] !== '') {
       if (currentBoard[6] === currentBoard[7]) {
         if (currentBoard[6] === currentBoard[8]) {
-          haveWinner(currentBoard[6], currentBoard[7], currentBoard[8]);
+          haveWinner(6, 7, 8);
         }
       }
     }
   }
-
-  // testing
-  // const testBoard = ['X', 'X', 'X', '', '', '', '', '', ''];
-  // should fire haveWinner()
-  // console.log(checkWinGame(testBoard));
-
-  // const testBoard = ['O', 'O', 'O', '', '', '', '', '', ''];
-  // should fire haveWinner()
-  // console.log(checkWinGame(testBoard));
-
-  const testBoard = ['X', '', '', '', 'X', '', '', '', 'X'];
-  // should fire haveWinner()
-  console.log(checkWinGame(testBoard));
 })();
