@@ -4,9 +4,11 @@ const gameBoard = (() => {
 
   function setGameBoard(position, marker) {
     let result;
+    console.log(position, marker);
     if (position >= 0 && position <= 8) {
       if (marker.toUpperCase() === 'X' || marker.toUpperCase() === 'O') {
         const isAvailable = _gameBoard[position] === '';
+        console.log(isAvailable);
         if (isAvailable) {
           _gameBoard.splice(position, 1, marker);
           result = `Successful: Added marker ${marker} to position ${position}`;
@@ -43,10 +45,14 @@ const playerFactory = (name, marker) => {
 };
 
 const winGameController = (() => {
+  let isWinner = false;
+  function getIsWinner() {
+    return isWinner;
+  }
   function haveWinner(position1, position2, position3) {
     const result = [position1, position2, position3];
     console.log('inside haveWinner');
-    console.log(result);
+    isWinner = true;
   }
   function checkWinGame(board) {
     const currentBoard = board;
@@ -112,9 +118,32 @@ const winGameController = (() => {
       }
     }
   }
-  return { checkWinGame };
+  return { checkWinGame, getIsWinner };
 })();
 
 const gameController = (() => {
-  
+  const playerX = playerFactory('Player X', 'X');
+  const playerO = playerFactory('Player O', 'O');
+  let currentTurn = playerX;
+  let totalTurns = 0;
+  function setTurn(boardPosition, marker) {
+    gameBoard.setGameBoard(boardPosition, marker);
+    console.log(gameBoard.getGameBoard());
+  }
+  for (let t = 0; t < 9; t += 1) {
+    const winStatus = winGameController.getIsWinner();
+    if (winStatus === false) {
+      const getPosition = Number(prompt('position?'));
+      const getMarker = prompt('marker?');
+      setTurn(getPosition, getMarker);
+      winGameController.checkWinGame(gameBoard.getGameBoard());
+      console.log(`inside the while statement:  ${winGameController.getIsWinner()}`);
+      totalTurns += 1;
+    }
+  }
+
+  if (totalTurns === 9) {
+    console.log('draw');
+  }
+  return { setTurn };
 })();
