@@ -36,10 +36,11 @@ const gameBoard = (() => {
   return { setGameBoard, getGameBoard, resetGameBoard };
 })();
 
-const playerFactory = (name, mark) => ({
-  name,
-  mark,
-});
+const playerFactory = (name, marker) => {
+  const getName = () => name;
+  const getMarker = () => marker;
+  return { getName, getMarker };
+};
 
 const winGameController = (() => {
   function haveWinner(position1, position2, position3) {
