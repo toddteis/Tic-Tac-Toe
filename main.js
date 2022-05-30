@@ -41,7 +41,7 @@ const playerFactory = (name, mark) => ({
   mark,
 });
 
-const gameController = (() => {
+const winGameController = (() => {
   function haveWinner(position1, position2, position3) {
     const result = [position1, position2, position3];
     console.log('inside haveWinner');
@@ -111,4 +111,9 @@ const gameController = (() => {
       }
     }
   }
+  return { checkWinGame };
+})();
+
+const gameController = (() => {
+  
 })();
