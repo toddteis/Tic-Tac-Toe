@@ -28,8 +28,17 @@ h1 {
 .error {
     text-align: center;
     color: red;
-    margin: 10px;
-    /* display: none; */
+    margin-top: 10px;
+    margin-bottom: 20px;
+    height: 20px;
+}
+
+.error-visible {
+    visibility: visible;
+}
+
+.error-hidden {
+    visibility: hidden;
 }
 
 /* GAME SECTION */

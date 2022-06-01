@@ -133,14 +133,21 @@ const displayController = (() => {
 
   const displayElement = document.getElementById('game');
   const childrenElements = displayElement.children;
+  const errorMsg = document.getElementById('error');
 
   function getDiv(content, id) {
     if (content === '') {
+      if (errorMsg.classList.contains('error-visible')) {
+        errorMsg.classList.remove('error-visible');
+        errorMsg.classList.add('error-hidden');
+      }
       const marker = gameController.getCurrentTurn().getMarker();
       gameController.setTurn(id, marker);
     } else {
       // call function that alerts user on an invalid selection.
       console.log('Already taken..try again');
+      errorMsg.classList.remove('error-hidden');
+      errorMsg.classList.add('error-visible');
     }
   }
 
