@@ -126,8 +126,12 @@ const displayPlayerMsgController = (() => {
   function setPlayerMsg() {
     let result;
     const player = gameController.getCurrentTurn().getName();
-    const totalTurns = gameController.getCurrentTurn();
+    const totalTurns = gameController.getTotalTurns();
+    console.log(totalTurns);
     if (totalTurns === 0) {
+      // BUG: this doesn't work because callng gameController on const's
+      // player & totalTurns before initialisation.
+      console.log('inside totalTurns if statement');
       result = `${player} starts.`;
     } else if (winGameController.getIsWinner === true) {
       console.log(`isWinnner: ${winGameController.getIsWinner}`);
