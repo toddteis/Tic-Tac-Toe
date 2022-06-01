@@ -130,20 +130,51 @@ const gameController = (() => {
     gameBoard.setGameBoard(boardPosition, marker);
     console.log(gameBoard.getGameBoard());
   }
-  for (let t = 0; t < 9; t += 1) {
-    const winStatus = winGameController.getIsWinner();
-    if (winStatus === false) {
-      const getPosition = Number(prompt('position?'));
-      const getMarker = prompt('marker?');
-      setTurn(getPosition, getMarker);
-      winGameController.checkWinGame(gameBoard.getGameBoard());
-      console.log(`inside the while statement:  ${winGameController.getIsWinner()}`);
-      totalTurns += 1;
+  // for (let t = 0; t < 9; t += 1) {
+  //   const winStatus = winGameController.getIsWinner();
+  //   if (winStatus === false) {
+  //     const getPosition = Number(prompt('position?'));
+  //     const getMarker = prompt('marker?');
+  //     setTurn(getPosition, getMarker);
+  //     winGameController.checkWinGame(gameBoard.getGameBoard());
+  //     console.log(`inside the while statement:  ${winGameController.getIsWinner()}`);
+  //     totalTurns += 1;
+  //   }
+  // }
+
+  // if (totalTurns === 9) {
+  //   console.log('draw');
+  // }
+  return { setTurn };
+})();
+
+const displayController = (() => {
+  // cache DOM
+  const topLeft = document.getElementById('0');
+  const topCenter = document.getElementById('1');
+  const topRight = document.getElementById('2');
+  const midLeft = document.getElementById('3');
+  const midCenter = document.getElementById('4');
+  const midRight = document.getElementById('5');
+  const botLeft = document.getElementById('6');
+  const botCenter = document.getElementById('7');
+  const botRight = document.getElementById('8');
+
+  const displayElement = document.getElementById('game');
+  const childrenElements = displayElement.children;
+  function getDiv(content, id) {
+    if (content === '') {
+      console.log(`Sending selection of ${id}`);
+    } else {
+      console.log('Already taken..try again');
     }
   }
 
-  if (totalTurns === 9) {
-    console.log('draw');
+  for (let i = 0; i < childrenElements.length; i += 1) {
+    const element = childrenElements[i];
+    element.addEventListener('click', () => {
+      getDiv(element.textContent, element.id);
+    });
   }
-  return { setTurn };
+  // render
 })();
