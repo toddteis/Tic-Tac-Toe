@@ -22,10 +22,16 @@ html {
 
 h1 {
     text-align: center;
-    margin: 80px 0 80px 0;
+    margin: 80px 0 40px 0;
 }
 
-.error {
+.message {
+    text-align: center;
+    font-size: 2rem;
+    height: 40px;
+}
+
+.error-msg {
     text-align: center;
     color: red;
     margin-top: 10px;

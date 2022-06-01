@@ -119,7 +119,32 @@ const winGameController = (() => {
   return { checkWinGame, getIsWinner };
 })();
 
-const displayController = (() => {
+const displayPlayerMsgController = (() => {
+  // cache DOM
+  const playerMsg = document.getElementById('message');
+  // render
+  function setPlayerMsg() {
+    let result;
+    const player = gameController.getCurrentTurn().getName();
+    const totalTurns = gameController.getCurrentTurn();
+    if (totalTurns === 0) {
+      result = `${player} starts.`;
+    } else if (winGameController.getIsWinner === true) {
+      console.log(`isWinnner: ${winGameController.getIsWinner}`);
+      result = `isWinnner: ${winGameController.getIsWinner}`;
+    } else if (totalTurns === 9) {
+      console.log(`Draw!! isWinnner: ${winGameController.getIsWinner}, Total Turns: ${totalTurns}`);
+      result = `isWinnner: ${winGameController.getIsWinner}`;
+    } else {
+      result = `${player}'s turn.`;
+    }
+    playerMsg.textContent = result;
+  }
+
+  return { setPlayerMsg };
+})();
+
+const displayBoardController = (() => {
   // cache DOM
   const topLeft = document.getElementById('0');
   const topCenter = document.getElementById('1');
@@ -166,6 +191,9 @@ const displayController = (() => {
     botLeft.textContent = board[6];
     botCenter.textContent = board[7];
     botRight.textContent = board[8];
+
+    // add player message
+    displayPlayerMsgController.setPlayerMsg();
   }
 
   return { renderBoard };
@@ -176,6 +204,10 @@ const gameController = (() => {
   const playerO = playerFactory('Player O', 'O');
   let currentTurn = playerX;
   let totalTurns = 0;
+  function getTotalTurns() {
+    return totalTurns;
+  }
+
   function getCurrentTurn() {
     return currentTurn;
   }
@@ -183,7 +215,7 @@ const gameController = (() => {
   function setTurn(boardPosition, marker) {
     gameBoard.setGameBoard(boardPosition, marker);
     // send getGameBoard to render
-    displayController.renderBoard(gameBoard.getGameBoard());
+    displayBoardController.renderBoard(gameBoard.getGameBoard());
     totalTurns += 1;
     if (currentTurn === playerX) {
       currentTurn = playerO;
@@ -206,5 +238,5 @@ const gameController = (() => {
   // if (totalTurns === 9) {
   //   console.log('draw');
   // }
-  return { setTurn, getCurrentTurn };
+  return { setTurn, getTotalTurns, getCurrentTurn };
 })();
