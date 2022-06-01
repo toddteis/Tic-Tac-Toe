@@ -4,11 +4,9 @@ const gameBoard = (() => {
 
   function setGameBoard(position, marker) {
     let result;
-    console.log(position, marker);
     if (position >= 0 && position <= 8) {
       if (marker.toUpperCase() === 'X' || marker.toUpperCase() === 'O') {
         const isAvailable = _gameBoard[position] === '';
-        console.log(isAvailable);
         if (isAvailable) {
           _gameBoard.splice(position, 1, marker);
           result = `Successful: Added marker ${marker} to position ${position}`;
@@ -121,14 +119,74 @@ const winGameController = (() => {
   return { checkWinGame, getIsWinner };
 })();
 
+const displayController = (() => {
+  // cache DOM
+  const topLeft = document.getElementById('0');
+  const topCenter = document.getElementById('1');
+  const topRight = document.getElementById('2');
+  const midLeft = document.getElementById('3');
+  const midCenter = document.getElementById('4');
+  const midRight = document.getElementById('5');
+  const botLeft = document.getElementById('6');
+  const botCenter = document.getElementById('7');
+  const botRight = document.getElementById('8');
+
+  const displayElement = document.getElementById('game');
+  const childrenElements = displayElement.children;
+
+  function getDiv(content, id) {
+    if (content === '') {
+      const marker = gameController.getCurrentTurn().getMarker();
+      gameController.setTurn(id, marker);
+    } else {
+      // call function that alerts user on an invalid selection.
+      console.log('Already taken..try again');
+    }
+  }
+
+  for (let i = 0; i < childrenElements.length; i += 1) {
+    const element = childrenElements[i];
+    element.addEventListener('click', () => {
+      getDiv(element.textContent, element.id);
+    });
+  }
+
+  // render
+  function renderBoard(board) {
+    // takes an array of the board and an renders to the page.
+    topLeft.textContent = board[0];
+    topCenter.textContent = board[1];
+    topRight.textContent = board[2];
+    midLeft.textContent = board[3];
+    midCenter.textContent = board[4];
+    midRight.textContent = board[5];
+    botLeft.textContent = board[6];
+    botCenter.textContent = board[7];
+    botRight.textContent = board[8];
+  }
+
+  return { renderBoard };
+})();
+
 const gameController = (() => {
   const playerX = playerFactory('Player X', 'X');
   const playerO = playerFactory('Player O', 'O');
   let currentTurn = playerX;
   let totalTurns = 0;
+  function getCurrentTurn() {
+    return currentTurn;
+  }
+
   function setTurn(boardPosition, marker) {
     gameBoard.setGameBoard(boardPosition, marker);
-    console.log(gameBoard.getGameBoard());
+    // send getGameBoard to render
+    displayController.renderBoard(gameBoard.getGameBoard());
+    totalTurns += 1;
+    if (currentTurn === playerX) {
+      currentTurn = playerO;
+    } else {
+      currentTurn = playerX;
+    }
   }
   // for (let t = 0; t < 9; t += 1) {
   //   const winStatus = winGameController.getIsWinner();
@@ -145,36 +203,5 @@ const gameController = (() => {
   // if (totalTurns === 9) {
   //   console.log('draw');
   // }
-  return { setTurn };
-})();
-
-const displayController = (() => {
-  // cache DOM
-  const topLeft = document.getElementById('0');
-  const topCenter = document.getElementById('1');
-  const topRight = document.getElementById('2');
-  const midLeft = document.getElementById('3');
-  const midCenter = document.getElementById('4');
-  const midRight = document.getElementById('5');
-  const botLeft = document.getElementById('6');
-  const botCenter = document.getElementById('7');
-  const botRight = document.getElementById('8');
-
-  const displayElement = document.getElementById('game');
-  const childrenElements = displayElement.children;
-  function getDiv(content, id) {
-    if (content === '') {
-      console.log(`Sending selection of ${id}`);
-    } else {
-      console.log('Already taken..try again');
-    }
-  }
-
-  for (let i = 0; i < childrenElements.length; i += 1) {
-    const element = childrenElements[i];
-    element.addEventListener('click', () => {
-      getDiv(element.textContent, element.id);
-    });
-  }
-  // render
+  return { setTurn, getCurrentTurn };
 })();

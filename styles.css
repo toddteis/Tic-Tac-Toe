@@ -25,6 +25,13 @@ h1 {
     margin: 80px 0 80px 0;
 }
 
+.error {
+    text-align: center;
+    color: red;
+    margin: 10px;
+    /* display: none; */
+}
+
 /* GAME SECTION */
 .game {
     display: grid;
