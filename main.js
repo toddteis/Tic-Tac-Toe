@@ -214,14 +214,13 @@ const gameController = (() => {
 
   function setTurn(boardPosition, marker) {
     gameBoard.setGameBoard(boardPosition, marker);
-    // send getGameBoard to render
-    displayBoardController.renderBoard(gameBoard.getGameBoard());
     totalTurns += 1;
     if (currentTurn === playerX) {
       currentTurn = playerO;
     } else {
       currentTurn = playerX;
     }
+    displayBoardController.renderBoard(gameBoard.getGameBoard());
   }
   // for (let t = 0; t < 9; t += 1) {
   //   const winStatus = winGameController.getIsWinner();
