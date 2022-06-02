@@ -129,13 +129,10 @@ const displayPlayerMsgController = (() => {
     const totalTurns = gameController.getTotalTurns();
     console.log(totalTurns);
     if (totalTurns === 0) {
-      // BUG: this doesn't work because callng gameController on const's
-      // player & totalTurns before initialisation.
-      console.log('inside totalTurns if statement');
       result = `${player} starts.`;
-    } else if (winGameController.getIsWinner === true) {
-      console.log(`isWinnner: ${winGameController.getIsWinner}`);
-      result = `isWinnner: ${winGameController.getIsWinner}`;
+    } else if (winGameController.getIsWinner() === true) {
+      console.log(`isWinnner: ${winGameController.getIsWinner()}`);
+      result = `isWinnner: ${winGameController.getIsWinner()}`;
     } else if (totalTurns === 9) {
       console.log(`Draw!! isWinnner: ${winGameController.getIsWinner()}, Total Turns: ${totalTurns}`);
       result = `isWinnner: ${winGameController.getIsWinner()}`;
@@ -224,6 +221,7 @@ const gameController = (() => {
     } else {
       currentTurn = playerX;
     }
+    winGameController.checkWinGame(gameBoard.getGameBoard());
     displayBoardController.renderBoard(gameBoard.getGameBoard());
   }
   // for (let t = 0; t < 9; t += 1) {
