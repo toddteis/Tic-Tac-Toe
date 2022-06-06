@@ -33,7 +33,11 @@ const gameBoard = (() => {
     return _gameBoard;
   }
 
-  return { setGameBoard, getGameBoard, resetGameBoard };
+  return {
+    setGameBoard,
+    getGameBoard,
+    resetGameBoard,
+  };
 })();
 
 const playerFactory = (name, marker) => {
@@ -74,6 +78,7 @@ const winGameController = (() => {
 
   function haveWinner(position1, position2, position3, marker) {
     // const result = [position1, position2, position3];
+    _winningPositions = [];
     _winningPositions.push(position1, position2, position3);
     _winningMarker = marker;
     getwinningNameFromMarker(marker);
@@ -144,12 +149,18 @@ const winGameController = (() => {
       }
     }
   }
-  return { checkWinGame, getIsWinner, getWinningPositions, getWinningMarker, getWinningPlayer };
+  return {
+    checkWinGame,
+    getIsWinner,
+    getWinningPositions,
+    getWinningMarker,
+    getWinningPlayer,
+  };
 })();
 
 const displayPlayerMsgController = (() => {
   // cache DOM
-  const playerMsg = document.getElementById('message');
+  const _playerMsg = document.getElementById('message');
   // render
   function setPlayerMsg() {
     let result;
@@ -167,7 +178,7 @@ const displayPlayerMsgController = (() => {
     } else {
       result = `${player}'s turn.`;
     }
-    playerMsg.textContent = result;
+    _playerMsg.textContent = result;
   }
 
   return { setPlayerMsg };
@@ -175,34 +186,34 @@ const displayPlayerMsgController = (() => {
 
 const displayBoardController = (() => {
   // cache DOM
-  const topLeft = document.getElementById('0');
-  const topCenter = document.getElementById('1');
-  const topRight = document.getElementById('2');
-  const midLeft = document.getElementById('3');
-  const midCenter = document.getElementById('4');
-  const midRight = document.getElementById('5');
-  const botLeft = document.getElementById('6');
-  const botCenter = document.getElementById('7');
-  const botRight = document.getElementById('8');
+  const _topLeft = document.getElementById('0');
+  const _topCenter = document.getElementById('1');
+  const _topRight = document.getElementById('2');
+  const _midLeft = document.getElementById('3');
+  const _midCenter = document.getElementById('4');
+  const _midRight = document.getElementById('5');
+  const _botLeft = document.getElementById('6');
+  const _botCenter = document.getElementById('7');
+  const _botRight = document.getElementById('8');
 
-  const displayElement = document.getElementById('game');
-  const childrenElements = displayElement.children;
-  const errorMsg = document.getElementById('error');
+  const _displayElement = document.getElementById('game');
+  const _childrenElements = _displayElement.children;
+  const _errorMsg = document.getElementById('error');
 
   function getDiv(content, id) {
     if (content === '') {
-      if (errorMsg.style.visibility === 'visible') {
-        errorMsg.style.visibility = 'hidden';
+      if (_errorMsg.style.visibility === 'visible') {
+        _errorMsg.style.visibility = 'hidden';
       }
       const marker = gameController.getCurrentTurn().getMarker();
       gameController.setTurn(id, marker);
     } else {
-      errorMsg.style.visibility = 'visible';
+      _errorMsg.style.visibility = 'visible';
     }
   }
 
-  for (let i = 0; i < childrenElements.length; i += 1) {
-    const element = childrenElements[i];
+  for (let i = 0; i < _childrenElements.length; i += 1) {
+    const element = _childrenElements[i];
     element.addEventListener('click', () => {
       getDiv(element.textContent, element.id);
     });
@@ -211,15 +222,15 @@ const displayBoardController = (() => {
   // render
   function renderBoard(board) {
     // takes an array of the board and an renders to the page.
-    topLeft.textContent = board[0];
-    topCenter.textContent = board[1];
-    topRight.textContent = board[2];
-    midLeft.textContent = board[3];
-    midCenter.textContent = board[4];
-    midRight.textContent = board[5];
-    botLeft.textContent = board[6];
-    botCenter.textContent = board[7];
-    botRight.textContent = board[8];
+    _topLeft.textContent = board[0];
+    _topCenter.textContent = board[1];
+    _topRight.textContent = board[2];
+    _midLeft.textContent = board[3];
+    _midCenter.textContent = board[4];
+    _midRight.textContent = board[5];
+    _botLeft.textContent = board[6];
+    _botCenter.textContent = board[7];
+    _botRight.textContent = board[8];
 
     // add player message
     displayPlayerMsgController.setPlayerMsg();
@@ -260,6 +271,9 @@ const gameController = (() => {
     }
     winGameController.checkWinGame(gameBoard.getGameBoard());
     displayBoardController.renderBoard(gameBoard.getGameBoard());
+    if (winGameController.getIsWinner === true) {
+      console.log('stop game');
+    }
   }
   // for (let t = 0; t < 9; t += 1) {
   //   const winStatus = winGameController.getIsWinner();
@@ -276,5 +290,11 @@ const gameController = (() => {
   // if (totalTurns === 9) {
   //   console.log('draw');
   // }
-  return { setTurn, getTotalTurns, getCurrentTurn, getPlayerX, getPlayerO };
+  return {
+    setTurn,
+    getTotalTurns,
+    getCurrentTurn,
+    getPlayerX,
+    getPlayerO,
+  };
 })();
