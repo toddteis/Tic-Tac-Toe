@@ -43,35 +43,63 @@ const playerFactory = (name, marker) => {
 };
 
 const winGameController = (() => {
-  let isWinner = false;
-  function getIsWinner() {
-    return isWinner;
+  let _isWinner = false;
+  let _winningPositions = [];
+  let _winningMarker;
+  let _winningPlayer;
+
+  function getwinningNameFromMarker(marker) {
+    if (marker === 'X') {
+      _winningPlayer = gameController.getPlayerX().getName();
+    } else if (marker === 'O') {
+      _winningPlayer = gameController.getPlayerO().getName();
+    }
   }
-  function haveWinner(position1, position2, position3) {
-    const result = [position1, position2, position3];
-    console.log('inside haveWinner');
-    isWinner = true;
+
+  function getIsWinner() {
+    return _isWinner;
+  }
+
+  function getWinningPositions() {
+    return _winningPositions;
+  }
+
+  function getWinningMarker() {
+    return _winningMarker;
+  }
+
+  function getWinningPlayer() {
+    return _winningPlayer;
+  }
+
+  function haveWinner(position1, position2, position3, marker) {
+    // const result = [position1, position2, position3];
+    _winningPositions.push(position1, position2, position3);
+    _winningMarker = marker;
+    getwinningNameFromMarker(marker);
+    console.log(_winningPlayer);
+    console.log(`winning markers is: ${_winningMarker}`);
+    _isWinner = true;
   }
   function checkWinGame(board) {
     const currentBoard = board;
-
     if (currentBoard[0] !== '') {
       // check top left to top right
       if (currentBoard[0] === currentBoard[1]) {
         if (currentBoard[0] === currentBoard[2]) {
-          haveWinner(0, 1, 2);
+          haveWinner(0, 1, 2, currentBoard[0]);
         }
       }
       // check top left to bottom right
       if (currentBoard[0] === currentBoard[4]) {
         if (currentBoard[0] === currentBoard[8]) {
-          haveWinner(0, 4, 8);
+          haveWinner(0, 4, 8, currentBoard[0]);
         }
       }
       // check top left to bottom left
       if (currentBoard[0] === currentBoard[3]) {
         if (currentBoard[0] === currentBoard[6]) {
-          haveWinner(0, 3, 6);
+          haveWinner(0, 3, 6, currentBoard[0]);
         }
       }
     }
@@ -79,7 +107,7 @@ const winGameController = (() => {
     if (currentBoard[1] !== '') {
       if (currentBoard[1] === currentBoard[4]) {
         if (currentBoard[1] === currentBoard[7]) {
-          haveWinner(1, 4, 7);
+          haveWinner(1, 4, 7, currentBoard[1]);
         }
       }
     }
@@ -87,7 +115,7 @@ const winGameController = (() => {
     if (currentBoard[2] !== '') {
       if (currentBoard[2] === currentBoard[5]) {
         if (currentBoard[2] === currentBoard[8]) {
-          haveWinner(2, 5, 8);
+          haveWinner(2, 5, 8, currentBoard[2]);
         }
       }
     }
@@ -95,7 +123,7 @@ const winGameController = (() => {
     if (currentBoard[3] !== '') {
       if (currentBoard[3] === currentBoard[4]) {
         if (currentBoard[3] === currentBoard[5]) {
-          haveWinner(3, 4, 5);
+          haveWinner(3, 4, 5, currentBoard[3]);
         }
       }
     }
@@ -103,7 +131,7 @@ const winGameController = (() => {
     if (currentBoard[6] !== '') {
       if (currentBoard[6] === currentBoard[4]) {
         if (currentBoard[6] === currentBoard[2]) {
-          haveWinner(6, 4, 2);
+          haveWinner(6, 4, 2, currentBoard[6]);
         }
       }
     }
@@ -111,12 +139,12 @@ const winGameController = (() => {
     if (currentBoard[6] !== '') {
       if (currentBoard[6] === currentBoard[7]) {
         if (currentBoard[6] === currentBoard[8]) {
-          haveWinner(6, 7, 8);
+          haveWinner(6, 7, 8, currentBoard[6]);
         }
       }
     }
   }
-  return { checkWinGame, getIsWinner };
+  return { checkWinGame, getIsWinner, getWinningPositions, getWinningMarker, getWinningPlayer };
 })();
 
 const displayPlayerMsgController = (() => {
@@ -201,10 +229,19 @@ const displayBoardController = (() => {
 })();
 
 const gameController = (() => {
-  const playerX = playerFactory('Player X', 'X');
-  const playerO = playerFactory('Player O', 'O');
-  let currentTurn = playerX;
+  const _playerX = playerFactory('Player X', 'X');
+  const _playerO = playerFactory('Player O', 'O');
+  let currentTurn = _playerX;
   let totalTurns = 0;
+
+  function getPlayerX() {
+    return _playerX;
+  }
+
+  function getPlayerO() {
+    return _playerO;
+  }
+
   function getTotalTurns() {
     return totalTurns;
   }
@@ -216,10 +253,10 @@ const gameController = (() => {
   function setTurn(boardPosition, marker) {
     gameBoard.setGameBoard(boardPosition, marker);
     totalTurns += 1;
-    if (currentTurn === playerX) {
-      currentTurn = playerO;
+    if (currentTurn === _playerX) {
+      currentTurn = _playerO;
     } else {
-      currentTurn = playerX;
+      currentTurn = _playerX;
     }
     winGameController.checkWinGame(gameBoard.getGameBoard());
     displayBoardController.renderBoard(gameBoard.getGameBoard());
@@ -239,5 +276,5 @@ const gameController = (() => {
   // if (totalTurns === 9) {
   //   console.log('draw');
   // }
-  return { setTurn, getTotalTurns, getCurrentTurn };
+  return { setTurn, getTotalTurns, getCurrentTurn, getPlayerX, getPlayerO };
 })();
