@@ -363,12 +363,11 @@ const gameController = (() => {
   }
 
   function resetGame() {
-    gameBoard.resetGameBoard();
-    winGameController.resetWinner();
-    // displayBoardController.toggleShowHideBtn();
-    displayBoardController.renderBoard(gameBoard.getGameBoard());
     currentTurn = _playerX;
     totalTurns = 0;
+    gameBoard.resetGameBoard();
+    winGameController.resetWinner();
+    displayBoardController.renderBoard(gameBoard.getGameBoard());
   }
 
   function setTurn(boardPosition, marker) {
