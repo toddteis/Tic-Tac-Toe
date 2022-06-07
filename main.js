@@ -166,14 +166,12 @@ const displayPlayerMsgController = (() => {
     let result;
     const player = gameController.getCurrentTurn().getName();
     const totalTurns = gameController.getTotalTurns();
-    console.log(totalTurns);
     if (totalTurns === 0) {
       result = `${player} starts.`;
     } else if (winGameController.getIsWinner() === true) {
       const winningPlayerName = winGameController.getWinningPlayer();
       result = `${winningPlayerName} wins!`;
     } else if (totalTurns === 9) {
-      console.log(`Draw!! isWinnner: ${winGameController.getIsWinner()}, Total Turns: ${totalTurns}`);
       result = 'Draw!';
     } else {
       result = `${player}'s turn.`;
@@ -199,6 +197,15 @@ const displayBoardController = (() => {
   const _displayElement = document.getElementById('game');
   const _childrenElements = _displayElement.children;
   const _errorMsg = document.getElementById('error');
+  const _btn = document.getElementById('btn');
+
+  function toggleShowHideBtn() {
+    if (_btn.style.visibility === 'visible') {
+      _btn.style.visibility = 'hidden';
+    } else {
+      _btn.style.visibility = 'visible';
+    }
+  }
 
   function getDiv(content, id) {
     if (winGameController.getIsWinner() === true) {
@@ -216,21 +223,83 @@ const displayBoardController = (() => {
     }
   }
 
-  function addWinClass() {
+  function toggleWinClass() {
     const winnerPositions = winGameController.getWinningPositions();
     for (let i = 0; i < winnerPositions.length; i += 1) {
       const position = winnerPositions[i];
-      if (position === 0) { _topLeft.classList.add('win'); }
-      if (position === 1) { _topCenter.classList.add('win'); }
-      if (position === 2) { _topRight.classList.add('win'); }
-      if (position === 3) { _midLeft.classList.add('win'); }
-      if (position === 4) { _midCenter.classList.add('win'); }
-      if (position === 5) { _midRight.classList.add('win'); }
-      if (position === 6) { _botLeft.classList.add('win'); }
-      if (position === 7) { _botCenter.classList.add('win'); }
-      if (position === 8) { _botRight.classList.add('win'); }
+      if (position === 0) {
+        if (_topLeft.classList.contains('win')) {
+          _topLeft.classList.remove('win');
+        } else {
+          _topLeft.classList.add('win');
+        }
+      }
+      if (position === 1) {
+        if (_topCenter.classList.contains('win')) {
+          _topCenter.classList.remove('win');
+        } else {
+          _topCenter.classList.add('win');
+        }
+      }
+      if (position === 2) {
+        if (_topRight.classList.contains('win')) {
+          _topRight.classList.remove('win');
+        } else {
+          _topRight.classList.add('win');
+        }
+      }
+      if (position === 3) {
+        if (_midLeft.classList.contains('win')) {
+          _midLeft.classList.remove('win');
+        } else {
+          _midLeft.classList.add('win');
+        }
+      }
+      if (position === 4) {
+        if (_midCenter.classList.contains('win')) {
+          _midCenter.classList.remove('win');
+        } else {
+          _midCenter.classList.add('win');
+        }
+      }
+      if (position === 5) {
+        if (_midRight.classList.contains('win')) {
+          _midRight.classList.remove('win');
+        } else {
+          _midRight.classList.add('win');
+        }
+      }
+      if (position === 6) {
+        if (_botLeft.classList.contains('win')) {
+          _botLeft.classList.remove('win');
+        } else {
+          _botLeft.classList.add('win');
+        }
+      }
+      if (position === 7) {
+        if (_botCenter.classList.contains('win')) {
+          _botCenter.classList.remove('win');
+        } else {
+          _botCenter.classList.add('win');
+        }
+      }
+      if (position === 8) {
+        if (_botRight.classList.contains('win')) {
+          _botRight.classList.remove('win');
+        } else {
+          _botRight.classList.add('win');
+        }
+      }
     }
   }
+
+  function restart() {
+    gameController.resetGame();
+    toggleShowHideBtn();
+    toggleWinClass();
+  }
+
+  _btn.addEventListener('click', restart);
 
   for (let i = 0; i < _childrenElements.length; i += 1) {
     const element = _childrenElements[i];
@@ -258,7 +327,8 @@ const displayBoardController = (() => {
 
   return {
     renderBoard,
-    addWinClass,
+    toggleWinClass,
+    toggleShowHideBtn,
   };
 })();
 
@@ -284,6 +354,10 @@ const gameController = (() => {
     return currentTurn;
   }
 
+  function resetGame() {
+    console.log('from resetGame()');
+  }
+
   function setTurn(boardPosition, marker) {
     gameBoard.setGameBoard(boardPosition, marker);
     totalTurns += 1;
@@ -295,7 +369,8 @@ const gameController = (() => {
     winGameController.checkWinGame(gameBoard.getGameBoard());
     displayBoardController.renderBoard(gameBoard.getGameBoard());
     if (winGameController.getIsWinner() === true) {
-      displayBoardController.addWinClass();
+      displayBoardController.toggleWinClass();
+      displayBoardController.toggleShowHideBtn();
     }
   }
 
@@ -305,5 +380,6 @@ const gameController = (() => {
     getCurrentTurn,
     getPlayerX,
     getPlayerO,
+    resetGame,
   };
 })();
