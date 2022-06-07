@@ -76,6 +76,13 @@ const winGameController = (() => {
     return _winningPlayer;
   }
 
+  function resetWinner() {
+    _isWinner = false;
+    _winningPositions = [];
+    _winningMarker = '';
+    _winningPlayer = '';
+  }
+
   function haveWinner(position1, position2, position3, marker) {
     // const result = [position1, position2, position3];
     _winningPositions = [];
@@ -155,6 +162,7 @@ const winGameController = (() => {
     getWinningPositions,
     getWinningMarker,
     getWinningPlayer,
+    resetWinner,
   };
 })();
 
@@ -355,7 +363,12 @@ const gameController = (() => {
   }
 
   function resetGame() {
-    console.log('from resetGame()');
+    gameBoard.resetGameBoard();
+    winGameController.resetWinner();
+    displayBoardController.toggleShowHideBtn();
+    displayBoardController.renderBoard(gameBoard.getGameBoard());
+    currentTurn = _playerX;
+    totalTurns = 0;
   }
 
   function setTurn(boardPosition, marker) {
