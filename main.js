@@ -84,15 +84,13 @@ const winGameController = (() => {
   }
 
   function haveWinner(position1, position2, position3, marker) {
-    // const result = [position1, position2, position3];
     _winningPositions = [];
     _winningPositions.push(position1, position2, position3);
     _winningMarker = marker;
     getwinningNameFromMarker(marker);
-    console.log(_winningPlayer);
-    console.log(`winning markers is: ${_winningMarker}`);
     _isWinner = true;
   }
+
   function checkWinGame(board) {
     const currentBoard = board;
     if (currentBoard[0] !== '') {
@@ -318,18 +316,19 @@ const displayBoardController = (() => {
 
   // render
   function renderBoard(board) {
-    // takes an array of the board and an renders to the page.
-    _topLeft.textContent = board[0];
-    _topCenter.textContent = board[1];
-    _topRight.textContent = board[2];
-    _midLeft.textContent = board[3];
-    _midCenter.textContent = board[4];
-    _midRight.textContent = board[5];
-    _botLeft.textContent = board[6];
-    _botCenter.textContent = board[7];
-    _botRight.textContent = board[8];
+    [
+      _topLeft.textContent,
+      _topCenter.textContent,
+      _topRight.textContent,
+      _midLeft.textContent,
+      _midCenter.textContent,
+      _midRight.textContent,
+      _botLeft.textContent,
+      _botCenter.textContent,
+      _botRight.textContent,
+    ] = board;
 
-    // add player message
+    // update player message
     displayPlayerMsgController.setPlayerMsg();
   }
 
