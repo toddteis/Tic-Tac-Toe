@@ -170,11 +170,11 @@ const displayPlayerMsgController = (() => {
     if (totalTurns === 0) {
       result = `${player} starts.`;
     } else if (winGameController.getIsWinner() === true) {
-      console.log(`isWinnner: ${winGameController.getIsWinner()}`);
-      result = `isWinnner: ${winGameController.getIsWinner()}`;
+      const winningPlayerName = winGameController.getWinningPlayer();
+      result = `${winningPlayerName} wins!`;
     } else if (totalTurns === 9) {
       console.log(`Draw!! isWinnner: ${winGameController.getIsWinner()}, Total Turns: ${totalTurns}`);
-      result = `isWinnner: ${winGameController.getIsWinner()}`;
+      result = 'Draw!';
     } else {
       result = `${player}'s turn.`;
     }
