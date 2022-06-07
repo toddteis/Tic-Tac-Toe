@@ -216,6 +216,22 @@ const displayBoardController = (() => {
     }
   }
 
+  function addWinClass() {
+    const winnerPositions = winGameController.getWinningPositions();
+    for (let i = 0; i < winnerPositions.length; i += 1) {
+      const position = winnerPositions[i];
+      if (position === 0) { _topLeft.classList.add('win'); }
+      if (position === 1) { _topCenter.classList.add('win'); }
+      if (position === 2) { _topRight.classList.add('win'); }
+      if (position === 3) { _midLeft.classList.add('win'); }
+      if (position === 4) { _midCenter.classList.add('win'); }
+      if (position === 5) { _midRight.classList.add('win'); }
+      if (position === 6) { _botLeft.classList.add('win'); }
+      if (position === 7) { _botCenter.classList.add('win'); }
+      if (position === 8) { _botRight.classList.add('win'); }
+    }
+  }
+
   for (let i = 0; i < _childrenElements.length; i += 1) {
     const element = _childrenElements[i];
     element.addEventListener('click', () => {
@@ -242,6 +258,7 @@ const displayBoardController = (() => {
 
   return {
     renderBoard,
+    addWinClass,
   };
 })();
 
@@ -278,24 +295,10 @@ const gameController = (() => {
     winGameController.checkWinGame(gameBoard.getGameBoard());
     displayBoardController.renderBoard(gameBoard.getGameBoard());
     if (winGameController.getIsWinner() === true) {
-      console.log('stop game');
+      displayBoardController.addWinClass();
     }
   }
-  // for (let t = 0; t < 9; t += 1) {
-  //   const winStatus = winGameController.getIsWinner();
-  //   if (winStatus === false) {
-  //     const getPosition = Number(prompt('position?'));
-  //     const getMarker = prompt('marker?');
-  //     setTurn(getPosition, getMarker);
-  //     winGameController.checkWinGame(gameBoard.getGameBoard());
-  //     console.log(`inside the while statement:  ${winGameController.getIsWinner()}`);
-  //     totalTurns += 1;
-  //   }
-  // }
 
-  // if (totalTurns === 9) {
-  //   console.log('draw');
-  // }
   return {
     setTurn,
     getTotalTurns,

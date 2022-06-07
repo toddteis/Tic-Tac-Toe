@@ -66,6 +66,10 @@ h1 {
     background-color: bisque;
 }
 
+.win {
+    background-color: chartreuse;
+}
+
 .border-bottom {
     border-bottom: 2px solid black;
 }
