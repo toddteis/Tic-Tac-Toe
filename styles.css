@@ -70,6 +70,24 @@ h1 {
     background-color: chartreuse;
 }
 
+.controls {
+    text-align: center;
+}
+
+button {
+    width: 8rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    color: black;
+    background-color:lightgray;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
 .border-bottom {
     border-bottom: 2px solid black;
 }
@@ -85,7 +103,6 @@ h1 {
 .border-left {
     border-left: 2px solid black;
 }
-
 
 /* FOOTER SECTION */
 
