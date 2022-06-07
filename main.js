@@ -201,6 +201,10 @@ const displayBoardController = (() => {
   const _errorMsg = document.getElementById('error');
 
   function getDiv(content, id) {
+    if (winGameController.getIsWinner() === true) {
+      return;
+    }
+
     if (content === '') {
       if (_errorMsg.style.visibility === 'visible') {
         _errorMsg.style.visibility = 'hidden';
@@ -236,7 +240,9 @@ const displayBoardController = (() => {
     displayPlayerMsgController.setPlayerMsg();
   }
 
-  return { renderBoard };
+  return {
+    renderBoard,
+  };
 })();
 
 const gameController = (() => {
@@ -271,7 +277,7 @@ const gameController = (() => {
     }
     winGameController.checkWinGame(gameBoard.getGameBoard());
     displayBoardController.renderBoard(gameBoard.getGameBoard());
-    if (winGameController.getIsWinner === true) {
+    if (winGameController.getIsWinner() === true) {
       console.log('stop game');
     }
   }
