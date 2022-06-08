@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 const gameBoard = (() => {
   const _gameBoard = ['', '', '', '', '', '', '', '', ''];
@@ -381,6 +382,9 @@ const gameController = (() => {
     displayBoardController.renderBoard(gameBoard.getGameBoard());
     if (winGameController.getIsWinner() === true) {
       displayBoardController.toggleWinClass();
+      displayBoardController.toggleShowHideBtn();
+    }
+    if (winGameController.getIsWinner() === false && totalTurns === 9) {
       displayBoardController.toggleShowHideBtn();
     }
   }
