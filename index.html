@@ -12,29 +12,29 @@
 <body>
     <main>
         <h1>Tic Tac Toe</h1>
-        <div class="player-msg">
-            <p class="message" id="message">Player X starts.</p>
-            <p class="error-msg hidden" id="error">Error: invalid selection</p>
-        </div>
-
-        <section class="game" id="game">
-            <div class="square border-bottom border-right" id="0"></div>
-            <div class="square border-bottom border-right border-left" id="1"></div>
-            <div class="square border-bottom border-left" id="2"></div>
-
-            <div class="square border-bottom border-top border-right" id="3"></div>
-            <div class="square border-bottom  border-top border-right border-left" id="4"></div>
-            <div class="square border-bottom border-top border-left" id="5"></div>
-
-            <div class="square border-top border-right" id="6"></div>
-            <div class="square border-top border-right border-left" id="7"></div>
-            <div class="square border-top border-left" id="8"></div>
+        <section class="game">
+            <div class="player-msg">
+                <p class="message" id="message">Player X starts.</p>
+                <p class="error-msg hidden" id="error">Error: invalid selection</p>
+            </div>
+            <div class="game-board" id="game-board">
+                <div class="square border-bottom border-right" id="0"></div>
+                <div class="square border-bottom border-right border-left" id="1"></div>
+                <div class="square border-bottom border-left" id="2"></div>
+    
+                <div class="square border-bottom border-top border-right" id="3"></div>
+                <div class="square border-bottom  border-top border-right border-left" id="4"></div>
+                <div class="square border-bottom border-top border-left" id="5"></div>
+    
+                <div class="square border-top border-right" id="6"></div>
+                <div class="square border-top border-right border-left" id="7"></div>
+                <div class="square border-top border-left" id="8"></div>
+            </div>
+            <div class="controls" id="controls">
+                <button class="btn hidden" id="btn">Restart</button>
+            </div>
         </section>
-        <div class="controls" id="controls">
-            <button class="btn hidden" id="btn">Restart</button>
-        </div>
     </main>
-
     <footer>
         <p class="attribution">
             Assignment by <a href="https://www.theodinproject.com" target="_blank">The Odin Project</a>.

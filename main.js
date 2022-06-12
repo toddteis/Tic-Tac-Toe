@@ -201,7 +201,7 @@ const displayBoardController = (() => {
   const _botCenter = document.getElementById('7');
   const _botRight = document.getElementById('8');
 
-  const _displayElement = document.getElementById('game');
+  const _displayElement = document.getElementById('game-board');
   const _childrenElements = _displayElement.children;
   const _errorMsg = document.getElementById('error');
   const _btn = document.getElementById('btn');
