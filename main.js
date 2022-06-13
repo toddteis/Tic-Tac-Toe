@@ -1,5 +1,43 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
+const preGame = (() => {
+  let player1;
+  let player2;
+
+  function getPlayerNames() {
+    return [player1, player2];
+  }
+
+  // Cache DOM
+  const playerX = document.getElementById('player-x');
+  const playerO = document.getElementById('player-o');
+  const btnStart = document.getElementById('btn-start');
+
+  function getNames() {
+    if (player1 === undefined) {
+      player1 = 'Player X';
+    }
+    if (player2 === undefined) {
+      player2 = 'Player O';
+    }
+  }
+
+  function getPlayerXValue(e) {
+    player1 = e.target.value;
+  }
+
+  function getPlayerOValue(e) {
+    player2 = e.target.value;
+  }
+
+  // Event Listeners
+  playerX.addEventListener('input', getPlayerXValue);
+  playerO.addEventListener('input', getPlayerOValue);
+  btnStart.addEventListener('click', getNames);
+
+  return { getPlayerNames };
+})();
+
 const gameBoard = (() => {
   const _gameBoard = ['', '', '', '', '', '', '', '', ''];
 
