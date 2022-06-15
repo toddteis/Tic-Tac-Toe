@@ -11,15 +11,25 @@ const preGame = (() => {
   // Cache DOM
   const playerX = document.getElementById('player-x');
   const playerO = document.getElementById('player-o');
+  const btnBack = document.getElementById('btn-back');
   const btnNext = document.getElementById('btn-next');
+  const btnStart = document.getElementById('btn-start');
 
-  function getNames() {
+  function navBack() {
+    //
+  }
+
+  function navNext() {
     if (player1 === undefined) {
       player1 = 'Player X';
     }
     if (player2 === undefined) {
       player2 = 'Player O';
     }
+  }
+
+  function navStart() {
+    //
   }
 
   function getPlayerXValue(e) {
@@ -33,7 +43,9 @@ const preGame = (() => {
   // Event Listeners
   playerX.addEventListener('input', getPlayerXValue);
   playerO.addEventListener('input', getPlayerOValue);
-  btnNext.addEventListener('click', getNames);
+  btnBack.addEventListener('click', navBack);
+  btnNext.addEventListener('click', navNext);
+  btnStart.addEventListener('click', navStart);
 
   return { getPlayerNames };
 })();
