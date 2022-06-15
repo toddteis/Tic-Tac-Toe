@@ -11,7 +11,7 @@ const preGame = (() => {
   // Cache DOM
   const playerX = document.getElementById('player-x');
   const playerO = document.getElementById('player-o');
-  const btnStart = document.getElementById('btn-start');
+  const btnNext = document.getElementById('btn-next');
 
   function getNames() {
     if (player1 === undefined) {
@@ -33,7 +33,7 @@ const preGame = (() => {
   // Event Listeners
   playerX.addEventListener('input', getPlayerXValue);
   playerO.addEventListener('input', getPlayerOValue);
-  btnStart.addEventListener('click', getNames);
+  btnNext.addEventListener('click', getNames);
 
   return { getPlayerNames };
 })();
