@@ -60,7 +60,11 @@ button, input {
     align-items: center;
 }
 
-.pre-game-inner {
+.pre-game-display {
+    height: 140px;
+}
+
+.enter-names-form {
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -78,7 +82,7 @@ input {
     margin: 0 0;
 }
 
-.next-btn-container {
+.btn-controls {
     text-align: center;
 }
 

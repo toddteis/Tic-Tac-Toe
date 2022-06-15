@@ -14,27 +14,25 @@
     <main>
         <h1>Tic Tac Toe</h1>
         <section class="pre-game">
-            <div class="pre-game-inner">
-                <label for="player-x">Player X's Name:</label>
-                <input type="text" id="player-x" name="player-x" placeholder="Player X">
-                <p class="player-x-error"></p>
-                <label for="player-o">Player O's Name:</label>
-                <input type="text" id="player-o" name="player-o" placeholder="Player O">
-                <p class="player-x-error"></p>
-                <div class="next-btn-container">
-                    <button class="btn-next" id="btn-next">Next</button>
+            <div class="pre-game-display">
+                <div class="enter-names-form" id="enter-names-form">
+                    <label for="player-x">Player X's Name:</label>
+                    <input type="text" id="player-x" name="player-x" placeholder="Player X">
+                    <p class="player-x-error"></p>
+                    <label for="player-o">Player O's Name:</label>
+                    <input type="text" id="player-o" name="player-o" placeholder="Player O">
+                    <p class="player-x-error"></p>
+                </div>
+                <div class="confirm-names-form hidden" id="confirm-names-form">
+                    <p class="player1" id="player1">player X</p>
+                    <p>Vs</p>
+                    <p class="player2" id="player2">player 0</p>
                 </div>
             </div>
-        </section>
-        <section class="confirm-names">
-            <div class="confirm-names-inner">
-                <p class="player1" id="player1">player X</p>
-                <p>Vs</p>
-                <p class="player2" id="player2">player 0</p>
-                <div class="confirm-names-btn">
-                    <button class="btn-back" id="btn-back">Back</button>
-                    <button class="btn-start" id="btn-start">Start</button>
-                </div>
+            <div class="btn-controls" id="btn-controls">
+                <button class="btn-back hidden" id="btn-back">Back</button>
+                <button class="btn-next" id="btn-next">Next</button>
+                <button class="btn-start hidden" id="btn-start">Start</button>
             </div>
         </section>
         <section class="game hidden">
