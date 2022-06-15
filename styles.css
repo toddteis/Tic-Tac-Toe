@@ -82,6 +82,20 @@ input {
     text-align: center;
 }
 
+/* CONFIRM NAMES SECTION */
+
+.confirm-names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.confirm-names-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /* GAME SECTION */
 .game-board {
     display: grid;
