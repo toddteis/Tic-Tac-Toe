@@ -9,6 +9,8 @@ const preGame = (() => {
   }
 
   // Cache DOM
+  const enterNamesForm = document.getElementById('enter-names-form');
+  const confirmNamesForm = document.getElementById('confirm-names-form');
   const playerX = document.getElementById('player-x');
   const playerO = document.getElementById('player-o');
   const btnBack = document.getElementById('btn-back');
@@ -16,16 +18,26 @@ const preGame = (() => {
   const btnStart = document.getElementById('btn-start');
 
   function navBack() {
-    //
+    enterNamesForm.classList.remove('hidden');
+    btnNext.classList.remove('hidden');
+    confirmNamesForm.classList.add('hidden');
+    btnBack.classList.add('hidden');
+    btnStart.classList.add('hidden');
   }
 
   function navNext() {
+    console.log('click');
     if (player1 === undefined) {
       player1 = 'Player X';
     }
     if (player2 === undefined) {
       player2 = 'Player O';
     }
+    enterNamesForm.classList.add('hidden');
+    btnNext.classList.add('hidden');
+    confirmNamesForm.classList.remove('hidden');
+    btnBack.classList.remove('hidden');
+    btnStart.classList.remove('hidden');
   }
 
   function navStart() {
