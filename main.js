@@ -18,9 +18,9 @@ const preGame = (() => {
   const btnStart = document.getElementById('btn-start');
 
   function navBack() {
-    enterNamesForm.classList.remove('hidden');
+    enterNamesForm.style.display = null;
     btnNext.classList.remove('hidden');
-    confirmNamesForm.classList.add('hidden');
+    confirmNamesForm.style.display = 'none';
     btnBack.classList.add('hidden');
     btnStart.classList.add('hidden');
   }
@@ -33,9 +33,9 @@ const preGame = (() => {
     if (player2 === undefined) {
       player2 = 'Player O';
     }
-    enterNamesForm.classList.add('hidden');
+    enterNamesForm.style.display = 'none';
     btnNext.classList.add('hidden');
-    confirmNamesForm.classList.remove('hidden');
+    confirmNamesForm.style.display = null;
     btnBack.classList.remove('hidden');
     btnStart.classList.remove('hidden');
   }
