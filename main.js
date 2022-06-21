@@ -19,14 +19,13 @@ const preGame = (() => {
 
   function navBack() {
     enterNamesForm.style.display = null;
-    btnNext.classList.remove('hidden');
     confirmNamesForm.style.display = 'none';
-    btnBack.classList.add('hidden');
-    btnStart.classList.add('hidden');
+    btnBack.style.display = 'none';
+    btnNext.style.display = null;
+    btnStart.style.display = 'none';
   }
 
   function navNext() {
-    console.log('click');
     if (player1 === undefined) {
       player1 = 'Player X';
     }
@@ -34,10 +33,10 @@ const preGame = (() => {
       player2 = 'Player O';
     }
     enterNamesForm.style.display = 'none';
-    btnNext.classList.add('hidden');
     confirmNamesForm.style.display = null;
-    btnBack.classList.remove('hidden');
-    btnStart.classList.remove('hidden');
+    btnBack.style.display = null;
+    btnNext.style.display = 'none';
+    btnStart.style.display = null;
   }
 
   function navStart() {
