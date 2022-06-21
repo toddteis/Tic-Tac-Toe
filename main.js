@@ -16,10 +16,14 @@ const preGame = (() => {
   const btnBack = document.getElementById('btn-back');
   const btnNext = document.getElementById('btn-next');
   const btnStart = document.getElementById('btn-start');
+  const playerXEle = document.getElementById('player1');
+  const playerOEle = document.getElementById('player2');
 
   function navBack() {
     enterNamesForm.style.display = null;
     confirmNamesForm.style.display = 'none';
+    player1 = undefined;
+    player2 = undefined;
     btnBack.style.display = 'none';
     btnNext.style.display = null;
     btnStart.style.display = 'none';
@@ -32,11 +36,15 @@ const preGame = (() => {
     if (player2 === undefined) {
       player2 = 'Player O';
     }
+    playerXEle.textContent = player1;
+    playerOEle.textContent = player2;
     enterNamesForm.style.display = 'none';
     confirmNamesForm.style.display = null;
     btnBack.style.display = null;
     btnNext.style.display = 'none';
     btnStart.style.display = null;
+    playerX.value = '';
+    playerO.value = '';
   }
 
   function navStart() {
