@@ -4,14 +4,6 @@ const preGame = (() => {
   let _player1;
   let _player2;
 
-  function getPlayer1() {
-    return _player1;
-  }
-
-  function getPlayer2() {
-    return _player2;
-  }
-
   // Cache DOM
   const enterNamesForm = document.getElementById('enter-names-form');
   const confirmNamesForm = document.getElementById('confirm-names-form');
@@ -60,6 +52,8 @@ const preGame = (() => {
   }
 
   function navStart() {
+    gameController.setPlayerX(_player1);
+    gameController.setPlayerO(_player2);
     const preGameEle = document.getElementById('pre-game');
     const gameEle = document.getElementById('game');
     preGameEle.style.display = 'none';
@@ -80,8 +74,6 @@ const preGame = (() => {
   btnBack.addEventListener('click', navBack);
   btnNext.addEventListener('click', navNext);
   btnStart.addEventListener('click', navStart);
-
-  return { getPlayer1, getPlayer2 };
 })();
 
 const gameBoard = (() => {
@@ -425,10 +417,19 @@ const displayBoardController = (() => {
 })();
 
 const gameController = (() => {
-  const _playerX = playerFactory(preGame.getPlayer1(), 'X');
-  const _playerO = playerFactory(preGame.getPlayer2(), 'O');
-  let currentTurn = _playerX;
+  let _playerX;
+  let _playerO;
+  let currentTurn;
   let totalTurns = 0;
+
+  function setPlayerX(name) {
+    _playerX = playerFactory(name, 'X');
+    currentTurn = _playerX;
+  }
+
+  function setPlayerO(name) {
+    _playerO = playerFactory(name, 'O');
+  }
 
   function getPlayerX() {
     return _playerX;
@@ -480,5 +481,7 @@ const gameController = (() => {
     getPlayerX,
     getPlayerO,
     resetGame,
+    setPlayerX,
+    setPlayerO,
   };
 })();
