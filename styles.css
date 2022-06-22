@@ -62,6 +62,8 @@ button, input {
 
 .pre-game-display {
     height: 140px;
+    display: flex;
+    align-items: center;
 }
 
 .enter-names-form {
@@ -88,7 +90,19 @@ input {
 
 /* CONFIRM NAMES SECTION */
 
-.confirm-names {
+.confirm-names-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.player1, .player2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+/* .confirm-names {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -98,7 +112,7 @@ input {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+} */
 
 /* GAME SECTION */
 .game-board {
