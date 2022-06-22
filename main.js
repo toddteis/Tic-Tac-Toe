@@ -36,8 +36,16 @@ const preGame = (() => {
     if (player2 === undefined) {
       player2 = 'Player O';
     }
-    playerXEle.textContent = player1;
-    playerOEle.textContent = player2;
+    if (player1 === 'Player X') {
+      playerXEle.textContent = player1;
+    } else {
+      playerXEle.textContent = `${player1} (X)`;
+    }
+    if (player2 === 'Player O') {
+      playerOEle.textContent = player2;
+    } else {
+      playerOEle.textContent = `${player2} (O)`;
+    }
     enterNamesForm.style.display = 'none';
     confirmNamesForm.style.display = null;
     btnBack.style.display = null;
