@@ -4,8 +4,12 @@ const preGame = (() => {
   let _player1;
   let _player2;
 
-  function getPlayerNames() {
-    return [_player1, _player2];
+  function getPlayer1() {
+    return _player1;
+  }
+
+  function getPlayer2() {
+    return _player2;
   }
 
   // Cache DOM
@@ -77,7 +81,7 @@ const preGame = (() => {
   btnNext.addEventListener('click', navNext);
   btnStart.addEventListener('click', navStart);
 
-  return { getPlayerNames };
+  return { getPlayer1, getPlayer2 };
 })();
 
 const gameBoard = (() => {
@@ -421,8 +425,8 @@ const displayBoardController = (() => {
 })();
 
 const gameController = (() => {
-  const _playerX = playerFactory('Player X', 'X');
-  const _playerO = playerFactory('Player O', 'O');
+  const _playerX = playerFactory(preGame.getPlayer1(), 'X');
+  const _playerO = playerFactory(preGame.getPlayer2(), 'O');
   let currentTurn = _playerX;
   let totalTurns = 0;
 
