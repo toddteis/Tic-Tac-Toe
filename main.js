@@ -262,7 +262,11 @@ const displayPlayerMsgController = (() => {
     _playerMsg.textContent = result;
   }
 
-  return { setPlayerMsg };
+  function setOpeningMsg(name) {
+    _playerMsg.textContent = `${name} starts.`;
+  }
+
+  return { setPlayerMsg, setOpeningMsg };
 })();
 
 const displayBoardController = (() => {
@@ -425,6 +429,7 @@ const gameController = (() => {
   function setPlayerX(name) {
     _playerX = playerFactory(name, 'X');
     currentTurn = _playerX;
+    displayPlayerMsgController.setOpeningMsg(name);
   }
 
   function setPlayerO(name) {
