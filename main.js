@@ -284,13 +284,16 @@ const displayBoardController = (() => {
   const _displayElement = document.getElementById('game-board');
   const _childrenElements = _displayElement.children;
   const _errorMsg = document.getElementById('error');
-  const _btn = document.getElementById('btn');
+  const _btnReplay = document.getElementById('btn-replay');
+  const _btnRestart = document.getElementById('btn-restart');
 
   function toggleShowHideBtn() {
-    if (_btn.style.visibility === 'visible') {
-      _btn.style.visibility = 'hidden';
+    if (_btnReplay.style.visibility === 'visible') {
+      _btnReplay.style.visibility = 'hidden';
+      _btnRestart.style.visibility = 'hidden';
     } else {
-      _btn.style.visibility = 'visible';
+      _btnReplay.style.visibility = 'visible';
+      _btnRestart.style.visibility = 'visible';
     }
   }
 
@@ -380,13 +383,18 @@ const displayBoardController = (() => {
     }
   }
 
-  function restart() {
+  function replay() {
     toggleWinClass();
     gameController.resetGame();
     toggleShowHideBtn();
   }
 
-  _btn.addEventListener('click', restart);
+  function restart() {
+    console.log('restart clicked');
+  }
+
+  _btnReplay.addEventListener('click', replay);
+  _btnRestart.addEventListener('click', restart);
 
   for (let i = 0; i < _childrenElements.length; i += 1) {
     const element = _childrenElements[i];
