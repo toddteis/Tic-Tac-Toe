@@ -1,11 +1,11 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 const preGame = (() => {
-  let player1;
-  let player2;
+  let _player1;
+  let _player2;
 
   function getPlayerNames() {
-    return [player1, player2];
+    return [_player1, _player2];
   }
 
   // Cache DOM
@@ -22,29 +22,29 @@ const preGame = (() => {
   function navBack() {
     enterNamesForm.style.display = null;
     confirmNamesForm.style.display = 'none';
-    player1 = undefined;
-    player2 = undefined;
+    _player1 = undefined;
+    _player2 = undefined;
     btnBack.style.display = 'none';
     btnNext.style.display = null;
     btnStart.style.display = 'none';
   }
 
   function navNext() {
-    if (player1 === undefined) {
-      player1 = 'Player X';
+    if (_player1 === undefined) {
+      _player1 = 'Player X';
     }
-    if (player2 === undefined) {
-      player2 = 'Player O';
+    if (_player2 === undefined) {
+      _player2 = 'Player O';
     }
-    if (player1 === 'Player X') {
-      playerXEle.textContent = player1;
+    if (_player1 === 'Player X') {
+      playerXEle.textContent = _player1;
     } else {
-      playerXEle.textContent = `${player1} (X)`;
+      playerXEle.textContent = `${_player1} (X)`;
     }
-    if (player2 === 'Player O') {
-      playerOEle.textContent = player2;
+    if (_player2 === 'Player O') {
+      playerOEle.textContent = _player2;
     } else {
-      playerOEle.textContent = `${player2} (O)`;
+      playerOEle.textContent = `${_player2} (O)`;
     }
     enterNamesForm.style.display = 'none';
     confirmNamesForm.style.display = null;
@@ -56,15 +56,18 @@ const preGame = (() => {
   }
 
   function navStart() {
-    //
+    const preGameEle = document.getElementById('pre-game');
+    const gameEle = document.getElementById('game');
+    preGameEle.style.display = 'none';
+    gameEle.classList.remove('hidden');
   }
 
   function getPlayerXValue(e) {
-    player1 = e.target.value;
+    _player1 = e.target.value;
   }
 
   function getPlayerOValue(e) {
-    player2 = e.target.value;
+    _player2 = e.target.value;
   }
 
   // Event Listeners
