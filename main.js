@@ -1,5 +1,3 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-underscore-dangle */
 const preGame = (() => {
   let _player1;
   let _player2;
@@ -14,6 +12,8 @@ const preGame = (() => {
   const btnStart = document.getElementById('btn-start');
   const playerXEle = document.getElementById('player1');
   const playerOEle = document.getElementById('player2');
+  const preGameEle = document.getElementById('pre-game');
+  const gameEle = document.getElementById('game');
 
   function navBack() {
     enterNamesForm.style.display = null;
@@ -54,8 +54,6 @@ const preGame = (() => {
   function navStart() {
     gameController.setPlayerX(_player1);
     gameController.setPlayerO(_player2);
-    const preGameEle = document.getElementById('pre-game');
-    const gameEle = document.getElementById('game');
     preGameEle.style.display = 'none';
     gameEle.classList.remove('hidden');
   }
@@ -68,12 +66,20 @@ const preGame = (() => {
     _player2 = e.target.value;
   }
 
+  function restart() {
+    navBack();
+    preGameEle.style.display = null;
+    gameEle.classList.add('hidden');
+  }
+
   // Event Listeners
   playerX.addEventListener('input', getPlayerXValue);
   playerO.addEventListener('input', getPlayerOValue);
   btnBack.addEventListener('click', navBack);
   btnNext.addEventListener('click', navNext);
   btnStart.addEventListener('click', navStart);
+
+  return { restart };
 })();
 
 const gameBoard = (() => {
@@ -390,7 +396,10 @@ const displayBoardController = (() => {
   }
 
   function restart() {
-    console.log('restart clicked');
+    preGame.restart();
+    toggleShowHideBtn();
+    toggleWinClass();
+    gameController.resetGame();
   }
 
   _btnReplay.addEventListener('click', replay);
